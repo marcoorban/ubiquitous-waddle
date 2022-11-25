@@ -1,0 +1,87 @@
+{% extends 'reports/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1>Bike Readiness Report</h1>
+    </div>
+
+    <div class="row">
+        <form action="{% url 'reports:bike_readiness' %}" method="post">
+            {% csrf_token %}
+                <div>
+                    {{form.bike_model.label_tag}}
+                    {{form.bike_model}}
+                </div>
+                <div>
+                    {{form.production_year.label_tag}}
+                    {{form.production_year}}
+                </div>
+                <div>
+                    {{form.quarter}}
+                    <input type="submit" value="Search">
+                </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <table class="table table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th>Bike Model</th>
+                    <th>Prod Date</th>
+                    <th>Frame</th>
+                    <th>Fork</th>
+                    <th>HbStem</th>
+                    <th>Sdlstp</th>
+                    <th>BBCrst</th>
+                    <th>Full Bike Cert?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bike in bikes %}
+                <tr>
+                    <td>{{bike}}</td>
+                    <td>{{bike.production_date}}</td>
+
+                    <td class="{{bike.frame.has_report.lifecycle}}">
+                        {% for report in bike.frame.has_report.reports %}
+                        <a href="{% url 'reports:part_detail' bike.frame.id %}">{{report.agile_number}}</a>
+                        {% endfor %}
+                    </td>
+
+                    <td class="{{bike.fork.has_report.lifecycle}}">
+                        {% for report in bike.fork.has_report.reports %}
+                            {{report.agile_number}}
+                        {% endfor %}
+                    </td>
+
+                    <td class="{{bike.has_hbstem_trc.lifecycle}}">
+                        {% for report in bike.has_hbstem_trc.reports %}
+                            {{report.agile_number}}
+                        {% endfor %}
+                    </td>
+
+                    <td class="{{bike.has_sdlstp_trc.lifecycle}}">
+                        {% for report in bike.has_sdlstp_trc.reports %}
+                            {{report.agile_number}}
+                        {% endfor %}
+                    </td>
+
+                    <td class="{{bike.has_bbc_trc.lifecycle}}">
+                        {% for report in bike.has_bbc_trc.reports %}
+                            {{report.agile_number}}
+                        {% endfor %}
+                    </td>
+                    
+                    <td>{{bike.report.has_attachment}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+{% endblock %}

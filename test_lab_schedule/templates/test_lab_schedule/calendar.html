@@ -1,0 +1,30 @@
+{% extends 'test_lab_schedule/base.html' %}
+
+{% block header %}
+<h1>Test Lab Schedule - {{header}} view</h1>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-4">
+	  <a class="btn btn-info left" href="{% url 'test_lab_schedule:calendar' %}{{ filter }}?{{ prev_month }}"> Last Month </a>
+	  <a class="btn btn-info left" href="{% url 'test_lab_schedule:calendar' %}{{ filter }}?{{ next_month }}"> Next Month </a>
+	</div>
+	<div class="col-md-8">
+	  <button type="button" hx-get="{% url 'test_lab_schedule:add_test' %}" hx-target="#dialog" class="btn btn-primary right">
+		Add Test 
+	  </button>	
+	</div>
+</div>
+
+<!-- Table -->
+<div class="row">
+	<div class="col-md-12">
+		<table cellpadding="0" cellspacing="0" class="table table-striped table-bordered weeklytable calendar">
+			{{ calendar }}
+		</table>
+	</div>
+</div>
+
+
+{% endblock %}

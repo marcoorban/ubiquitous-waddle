@@ -1,0 +1,67 @@
+   .left {
+    float: left;
+  }
+  
+  .right {
+    float: right;
+  }
+  
+  .btn {
+    outline: none;
+    color: black;
+    background-color: transparent;
+    box-shadow: 0 0 0 0;
+  }
+  
+  .clearfix {
+    margin: 15px;
+  }
+
+.calendar tr > *:nth-child(6) {
+    display: none;
+}
+
+.calendar tr > *:nth-child(7) {
+  display: none;
+}
+
+.calendar-li {
+  list-style: none;
+}
+
+.weeklytable th{
+  text-align: center;
+}
+
+.machine-letter{
+  text-align: center;
+}
+
+.weeklytable ul{
+  padding: 0px;
+  border:0px;
+}
+
+.weeklytable li{
+  list-style: none;
+}
+
+.PASS {
+  background-color: greenyellow;
+}
+
+.FAIL {
+  background-color: orangered;
+}
+
+.RND {
+  background-color: cadetblue;
+}
+
+.QUEUE {
+  background-color: goldenrod;
+}
+
+.CANCEL{
+  background-color: grey;
+}

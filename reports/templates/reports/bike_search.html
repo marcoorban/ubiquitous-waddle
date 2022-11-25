@@ -1,0 +1,39 @@
+
+{% extends "reports/base.html" %}
+
+{% block title %}Bike Search{% endblock %}
+
+{% block content %}
+
+<div>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Search">
+    </form>
+</div>
+
+<div>
+    {% if results %}
+    <h1>Search Results</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">PID</td>
+                <th scope="col">Bike Report Agile Number</td>
+                <th scope="col">Description</td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for result in results %}
+        <tr>
+            <td>{{result.pid}}</td>
+            <td><a href="{% url 'reports:bikereport' result.id %}"><p>{{result.agile_number}}</p></a></td>
+            <td>{{result.description}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock %}

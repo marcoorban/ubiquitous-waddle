@@ -1,0 +1,15 @@
+[run]
+source = .
+omit = 
+    documentation/*
+    reports/__init__.py
+    reports/admin.py
+    reports/const.py
+    reports/apps.py
+    reports/migrations/*
+    reports/urls.py
+    reports/tests.py
+    manage.py
+
+[html]
+directory = coverage_report

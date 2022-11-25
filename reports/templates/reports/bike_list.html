@@ -1,0 +1,28 @@
+{% extends 'reports/base.html' %}
+
+{% block content %}
+
+    <h1>Bike List</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Production Date</th>
+                <th>PID</th>
+                <th>Bike Family</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bike in bikes %}
+            <tr>
+                <td>{{bike.production_date}}</td>
+                <td><a href="{% url 'reports:bikereport' bike.report.pid %}">{{bike.report.pid}}</a></td>
+                <td>{{bike.model}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    
+    </table>
+
+
+{% endblock %}

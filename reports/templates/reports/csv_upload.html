@@ -1,0 +1,17 @@
+{% extends "reports/base.html" %}
+
+{% block title %}CSV Upload{% endblock %}
+
+{% block content %}
+<form action="{% url 'reports:csv_upload' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>Upload CSV file</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        <label for="attachment">Select a file:</label>
+        <input type="file" name="attachment"><br>
+    </fieldset>
+    <input type="submit" value="Upload">
+</form>
+
+{% endblock %}

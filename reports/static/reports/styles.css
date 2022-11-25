@@ -1,0 +1,16 @@
+a.list-group-item {
+    text-decoration: none;
+    color: black;
+  }
+
+td.production {
+  background-color: greenyellow;
+}
+
+td.preliminary {
+  background-color: yellow;
+}
+
+td.none {
+  background-color: orange;
+}

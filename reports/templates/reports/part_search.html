@@ -1,0 +1,19 @@
+<form action="{% url 'reports:part_search' %}" method="post">
+{% csrf_token %}
+<fieldset>
+    <legend><h1>Search part</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <label for="description">Description</label>
+    <input type="text" name="description"><br>
+</fieldset>
+<input type="submit" value="Search">
+</form>
+
+{% if parts %}
+    <h1>Search Results:</h1>
+    <ul>
+    {% for part in parts %}
+        <li><a href="{% url 'reports:part_detail' part.pk %}">{{ part.description }}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}

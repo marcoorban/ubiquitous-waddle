@@ -1,0 +1,21 @@
+{% for test in tests %}
+<tr>
+  {% if filter == 'machine' %}
+  <td>{{test.object.name}}</td>
+  {% endif %}
+  {% for day in test.tests %}
+  <td>
+    {% for ticket in day %}
+    <li>
+      <button type="button" class="btn btn-outline-primary btn-sm {{ticket.result}}" hx-get="{% url 'test_lab_schedule:edit_test' %}{{ticket.pk}}" hx-target="#dialog">
+        {{ticket.project}} -- 
+        {{ticket.lims}} -- {{ticket.labtestinfo}} -- {{ticket.technician}}
+      </button>
+    </li>
+    {% endfor %}
+  </td>
+  {% endfor %}
+</tr>
+
+
+{% endfor %}

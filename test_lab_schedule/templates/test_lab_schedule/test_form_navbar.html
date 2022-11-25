@@ -1,0 +1,15 @@
+
+{% extends 'test_lab_schedule/base.html' %}
+
+{% block content %}
+
+<div class="container">
+<form action="{% url 'test_lab_schedule:add_test_navbar' %}" method="post">
+    {% csrf_token %}
+    <h5 class="modal-title">Add Test</h5>
+      {% csrf_token %}
+      {{ form.as_p }}
+    <button type="submit" class="btn btn-primary left">Save</button>
+</form>
+</div>
+{% endblock %}

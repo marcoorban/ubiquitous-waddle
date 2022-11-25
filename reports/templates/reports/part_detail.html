@@ -1,0 +1,72 @@
+{% extends 'reports/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <h3>{{part.description}}</h3>
+
+        <table class="table">
+            <tr>
+                <th>Agile number</th>
+                <td> {{part.agile_number}} </td>
+            </tr>
+            <tr>
+                <th>Lifecycle</th>
+                <td>{{ part.lifecycle }}</td>
+            </tr>
+            <tr>
+                <th>Other names</th>
+                <td>
+                    {% for name in part.get_names %}
+                        {{ name }} &nbsp;
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>TRPs used in</th>
+                <td>
+                    {% if part.get_reports %}
+                    <div class="list-group"></div>
+                        {% for report in part.get_reports %}
+                        <a href="{% url 'reports:trp_detail' report.pk %}" class="list-group-item">{{ report }}</a>
+                    {% endfor %}
+                    </div>
+        
+                    {% else %}
+                        No Reports
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>TRCs used in</th>
+                <td>
+                    {% if part.get_trcs %}
+                    <div class="list-group">
+                        {% for report in part.get_trcs %}
+                        <a href="{% url 'reports:trc_detail' report.pk %}" class="list-group-item">{{ report }}</a>
+                    {% endfor %}
+                    </div>
+        
+                    {% else %}
+                        No Reports
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Bikes used in</th>
+                <td>
+                    <div class="list-group">
+                        {% for bike in part.get_bikes %}
+                        <a href="{% url 'reports:bikereport' bike.report.pid %}" class="list-group-item">{{bike.get_prod_year}} {{ bike }}</a>
+                        {% endfor %}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,185 @@
+{% extends 'reports/base.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    <h1>{{bikereport.description}}</h1>
+    <table class="table">
+        <tr>
+            <th>Bike Report Agile no.</th>
+            <td>{{bikereport.agile_number}}</td>
+        </tr>
+        <tr>
+            <th>Production Date</th>
+            <td>{{bikereport.first_prod_date}}</td>
+        </tr>
+        <tr>
+            <th>MPL Product ID</th>
+            <td>{{bikereport.pid}}</td>
+        </tr>
+        <tr>
+            <th>Assembler reports in Agile</th>
+            <td>{{bikereport.has_attachment}}</td>
+        </tr>
+        <tr>
+            <th>Is Ebike</th>
+            <td>{{bikereport.ebike}}</td>
+        </tr>
+    </table>
+    
+</div>
+
+<br>
+
+<div class="container">
+    {% for bike in bikes %}
+    <h2>{{bike.size}}</h2>
+        <table class="table table-bordered table-sm">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Part Info</th>
+                    <th>Report</th>
+                    <th>In Agile Bike Report</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <tr>
+                    <th>Frame</th>
+                    <td><a href="{% url 'reports:part_detail' bike.frame.id %}">{{bike.frame}}</a></td>
+                    {% with reports=bike.frame.get_reports %}
+                        <td>{% for report in reports %}
+                                {{report}}&nbsp;
+                            {% endfor %}
+                        </td>
+
+                        {% for report in reports %}
+
+                        {% if report in bikereport.get_trps %}
+                        <td>Yes</td>
+                        {% else %}
+                        <td>No</td>
+                        {% endif %}
+
+                        {% endfor %} 
+                    {% endwith %}
+                </tr>
+        
+                <tr>
+                    <th>Fork</th>
+                    <td><a href="{% url 'reports:part_detail' bike.fork.id %}">{{ bike.fork }}</a></td>
+                    {% with reports=bike.fork.get_reports %}
+                        <td>{% for report in reports %}
+                                {{report}}&nbsp;
+                            {% endfor %}
+                        </td>
+
+                        {% for report in reports %}
+
+                        {% if report in bikereport.get_trps %}
+                        <td>Yes</td>
+                        {% else %}
+                        <td>No</td>
+                        {% endif %}
+
+                        {% endfor %} 
+                    {% endwith %}
+                </tr>
+                <!-- STEERING -->
+                <tr>
+                    <!--HEADER-->
+                    <th rowspan="2">Steering</th>
+                    <!-- PART INFO -->
+                    <!-- HANDLEBAR-->
+                    <td><a href="{% url 'reports:part_detail' bike.handlebar.id %}">{{ bike.handlebar }}</a></td>
+                    <!-- COMBO REPORTS -->
+                    {% with reports=bike.get_hbstem_reports %}
+                    <td rowspan="2">
+                        {% for report in reports %}
+                            {{report}}&nbsp;
+                        {% endfor %}
+                    </td>
+                    <!-- Checking if the reports have been added to the Product Model page in Agile -->
+                    {% for report in reports %}
+                        {% if report in bikereport.get_trcs %}
+                        <td rowspan="2">True</td>
+                        {% else %}
+                        <td rowspan="2">False</td>
+                        {% endif %}
+                    {% endfor %} 
+                    {% endwith %}
+                </tr>
+                <!-- STEM -->
+                <tr>
+                    <td><a href="{% url 'reports:part_detail' bike.stem.id %}">{{ bike.stem }}</a></td>
+                </tr>
+                <!-- SADDLE AND SEATPOST -->
+                <tr>
+                    <!--HEADER-->
+                    <th rowspan="2">Saddle Seatpost
+                    </th>
+                    <!-- PART INFO -->
+                    <!-- SADDLE -->
+                    <td><a href="{% url 'reports:part_detail' bike.saddle.id %}">{{ bike.saddle }}</a></td>
+                    <!-- COMBO REPORTS -->
+                    {% with reports=bike.get_sdlstp_reports %}
+                    <td rowspan="2">
+                        {% for report in reports %}
+                            {{report}}&nbsp;
+                        {% endfor %}
+                    </td>
+                    <!-- Checking if the reports have been added to the Product Model page in Agile -->
+                    {% for report in reports %}
+                        {% if report in bikereport.get_trcs %}
+                        <td rowspan="2">True</td>
+                        {% else %}
+                        <td rowspan="2">False</td>
+                        {% endif %}
+                    {% endfor %} 
+                    {% endwith %}
+                </tr>
+                <!-- SEAT POST -->
+                <tr>
+                    <td><a href="{% url 'reports:part_detail' bike.seatpost.id %}">{{ bike.seatpost }}</a></td>
+                </tr>
+
+                <!-- BB AND CRANKSET -->
+                <tr>
+                    <!--HEADER-->
+                    <th rowspan="2">Drivetrain</th>
+                    <!-- PART INFO -->
+                    <!-- BB-->
+                    <td><a href="{% url 'reports:part_detail' bike.bb.id %}">{{ bike.bb }}</a></td>
+                    <!-- COMBO REPORTS -->
+                    {% with reports=bike.get_bbc_reports %}
+                    <td rowspan="2">
+                        {% for report in reports %}
+                            {{report}}&nbsp;
+                        {% endfor %}
+                    </td>
+                    <!-- Checking if the reports have been added to the Product Model page in Agile -->
+                    {% for report in reports %}
+                        {% if report in bikereport.get_trcs %}
+                        <td rowspan="2">True</td>
+                        {% else %}
+                        <td rowspan="2">False</td>
+                        {% endif %}
+                    {% endfor %} 
+                    {% endwith %}
+                </tr>
+                <!-- CRANKSET -->
+                <tr>
+                    <td><a href="{% url 'reports:part_detail' bike.cs.id %}">{{ bike.cs }}</a></td>
+                </tr>
+        
+            </tbody>
+        </table>
+        <br>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

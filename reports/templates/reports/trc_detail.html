@@ -1,0 +1,14 @@
+<h1>{{ testreportcombo }}</h1>
+<h2>Lifecycle</h2>
+<ul>
+    <li>{{ testreportcombo.lifecycle }}</li>
+</ul>
+<h2>Contents</h2>
+<ul>
+    {% for trp in testreportcombo.get_contents.trps %}
+        <li><a href="{% url 'reports:trp_detail' trp.pk %}">{{ trp }}</a></li>
+    {% endfor %}
+    {% for part in testreportcombo.get_contents.parts %}
+    <li><a href="{% url 'reports:part_detail' part.pk %}">{{ part }}</a></li>
+{% endfor %}
+</ul>
